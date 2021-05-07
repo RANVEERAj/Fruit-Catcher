@@ -35,35 +35,25 @@ function setup() {
 
 function draw() {
   background(back_img);
-
-  // Add conditions for gameStates and playerCount
-  if(playerCount===2){
-    game.update(1)
+  if (gameState === 1) {
+    clear(); 
+    game.play();
+  }
+  if (gameState === 2) {
+    game.end();
+  }
+  if (playerCount === 2) {
+    game.update(1);
   }
 
-if(gameState===1){
-  clear()
-  game.play()
-}
-if(gameState===2){
-  game.end()
-}
-
-
-if(keyIsDown(RIGHT_ARROW )&& player.index!==null){
-  player.distance-=10;
-  player.update()
-}
-
-
-if(keyIsDown(LEFT_ARROW )&& player.index!==null){
-  player.distance+=10;
-  player.update()
-}
-
-
-
-
-
-
+  if(player.index !== null ){
+    for(var i=0;i<fruitGroup.length;i++){
+      if(fruitGroup.get(i).isTouching(players)){
+        fruitGroup.get(i).destroy()
+        player.score=player.score+1;
+        player.update()
+      }
+    }
+  }
+  
 }
